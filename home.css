@@ -1,0 +1,425 @@
+/* Website Container */
+body, html {
+    margin: 0px;
+    padding: 0px;
+    max-height: max-content;
+
+}
+
+
+
+/* Set global variables for the website */
+:root {
+    --colorTheme: rgb(26, 70, 99);
+}
+
+
+.page-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+/* Header Container*/
+.header-container {
+    width: 100%;
+}
+@media screen and (max-width: 680px) {
+    .header-container {
+        margin: 0px;
+    }
+}
+.header {
+    width: 100%;
+    background-color: white;
+    padding-left: 150px;  
+}
+@media screen and (max-width: 600px) {
+    .header {
+        padding: 0px;
+        display: flex;
+        justify-content: center;
+    }
+}
+@media screen and (max-width: 1173px) {
+    .header {
+        padding: 0px;
+        display: flex;
+        justify-content: center;
+    }
+}
+.header img {
+    float: left;
+}
+.nav {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+@media screen and (max-width: 1173px) {
+    .nav {
+        padding: 0px;
+        display: flex;
+        justify-content: center;
+    }
+}
+@media screen and (max-width: 680px) {
+    .nav {
+        padding: 0px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+}
+.nav ul {
+    display: flex;
+    list-style-type: none;
+    flex-wrap: wrap;
+    padding: 5px 100px 5px 5px;
+    margin: 0px;
+}
+@media screen and (max-width: 680px) {
+    .nav ul {
+        float: none;
+        width: 100%;
+        padding: 0px;
+    }
+}
+.nav li {
+    padding: 5px 10px 5px 10px;
+    margin: 10px;
+    border: 2px solid var(--colorTheme);
+    border-radius: 5px;
+}
+.nav li:hover{
+    background-color: var(--colorTheme);
+}
+.nav a {
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+}
+@media screen and (max-width: 680px) {
+    .nav ul li {
+        float: none;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+}
+@media screen and (max-width: 680px) {
+    .nav ul li:hover {
+        float: none;
+        width: 100%;
+        background-color: var(--colorTheme);
+    }
+}
+.nav li a:hover{
+    border-bottom: none;
+    margin: -2px;
+    padding: 2px;
+    color: white;
+}
+@media screen and (max-width: 600px) {
+    .nav ul li a:hover {
+        background-color: transparent;
+        color: white;
+    }
+}
+
+
+
+
+
+/* Main Page Container*/
+.main-content-container {
+    display: flex;
+    align-items: center;
+    flex-flow: wrap;
+    width: 100%;
+}
+@media screen and (max-width: 900px) {
+    .main-content-container{
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+/* Top Content Container*/
+.top-background {
+    display: block;
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ),url('/Users/huntersandness/Desktop/Development/Frontend/WebDev/CorePassion/Resources/marek-piwnicki-HTb2aTv2JHs-unsplash.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    opacity: 0.85;
+    height: 590px;
+    width: 100%;
+}
+
+
+.mission-statement {
+    padding: 10px 50px 10px 50px;
+}
+#mission-statement-p{
+    padding: 10px 200px 10px 200px;
+}
+.banners-wrapper {
+    display: flex;
+    width: 100%;
+    flex: 1;
+}
+.banner-1 {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 40px;
+    flex: 1;
+}
+.banner-2 {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 40px;
+    flex: 1;
+}
+.banner-3 {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 40px;
+    flex: 1;
+}
+.banner-1 p{
+    background: var(--colorTheme);
+    color: white;
+    padding: 20px;
+    display: flex;
+    height: 100px;
+}
+.banner-2 p{
+    background: var(--colorTheme);
+    color: white;
+    padding: 20px;
+    display: flex;
+    height: 100px;
+}
+.banner-3 p{
+    background: var(--colorTheme);
+    color: white;
+    padding: 20px;
+    display: flex;
+    height: 100px;
+}
+.banner-1 img{
+    padding-bottom: 100px;
+    height: 300px;
+    width: 100%;
+}
+.banner-2 img{
+    padding-bottom: 100px;
+    height: 300px;
+    width: 100%;
+}
+.banner-3 img{
+    padding-bottom: 100px;
+    height: 300px;
+    width: 100%;
+}
+.clients-wrapper {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ),url("/Users/huntersandness/Desktop/Development/Frontend/WebDev/CorePassion/Resources/clients_background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    opacity: 0.75;
+    height: 350px;
+    width: 100%;
+}
+.clients-wrapper h1 {
+    color: white;
+    padding-top: 75px;
+    font-size: 75px;
+}
+
+
+
+
+/* Gallery container */
+.gallery-wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;  
+}
+@media screen and (max-width: 450px) {
+    .gallery-wrapper {
+        display: inline-block;
+    }
+}
+.gallery-wrapper-img1 {
+    flex: 1;
+    padding-top: 50px;
+    padding-bottom: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5px;
+    justify-content: center;
+}
+@media screen and (max-width: 450px) {
+    .gallery-wrapper-img1 {
+        width: 100%;
+    }
+}
+.gallery-wrapper-img2 {
+    flex: 1;
+    padding-top: 50px;
+    padding-bottom: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5px;
+    justify-content: center;
+}
+@media screen and (max-width: 450px) {
+    .gallery-wrapper-img2 {
+        width: 100%;
+    }
+}
+.gallery-wrapper-img3 {
+    flex: 1;
+    padding-top: 50px;
+    padding-bottom: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5px;
+    justify-content: center;
+}
+@media screen and (max-width: 450px) {
+    .gallery-wrapper-img3 {
+        width: 100%;
+    }
+}
+.gallery-wrapper img {
+    width: 90%;
+}
+.gallery-wrapper p {
+    width: 90%;
+    color: black;
+}
+.assessments-wrapper {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ),url("/Users/huntersandness/Desktop/Development/Frontend/WebDev/CorePassion/Resources/assessments.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    opacity: 0.75;
+    height: 350px;
+    width: 100%;
+}
+.assessments-wrapper h1 {
+    color: white;
+    padding-top: 75px;
+    font-size: 75px;
+}
+.assessments-content-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 10px 300px 10px 300px;
+}
+.col1 {
+    display: flex;
+    width: 33.33%;
+    color: var(--colorTheme);
+}
+.col2 {
+    display: flex;
+    width: 33.33%;
+    color: var(--colorTheme);
+}
+.col3 {
+    display: flex;
+    width: 33.33%;
+    color: var(--colorTheme);
+}
+.serv-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+#services-button {
+    padding: 10px;
+    border: 1px solid var(--colorTheme);
+    border-radius: 5px;
+    margin-bottom: 40px;
+    background: transparent;
+}
+#services-button:hover {
+    background: var(--colorTheme);
+    color: white;
+    cursor: pointer;
+}
+
+
+
+/* Footer Container */
+.footer-content {
+    width: 100%;
+    background-color: var(--colorTheme);
+}
+
+.footer-content ul {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0px;
+}
+@media screen and (max-width: 450px) {
+    .footer-content ul{
+        width: 100%; 
+        float: none;
+        padding: 0px;
+    }
+}
+.footer-content li {
+    padding: 10px;
+}
+@media screen and (max-width: 450px) {
+    .footer-content ul li{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 0px;
+    }
+}
+.footer-content a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 20px;
+}
+@media screen and (max-width: 450px) {
+    .footer-content ul li:hover {
+        float: none;
+        width: 100%;
+        background-color: black;
+    }
+}
+.footer-content a:hover {
+    border-bottom: none;
+    background: rgb(153, 151, 151);
+    margin: -5;
+}
+@media screen and (max-width: 450px) {
+    .footer-content ul li a:hover {
+        background-color: transparent;
+    }
+}
