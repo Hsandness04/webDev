@@ -26,7 +26,7 @@ function test_input($data) {
     function employee($fname, $lname, $email, $phone, $ssn) {
         include 'connect.php';
 
-        $employee = "SELECT first_name, ssn FROM employees WHERE ssn = ?";
+        $employee = "SELECT first_name, ssn FROM employee WHERE ssn = ?";
         $check_stmt = $conn->prepare($employee);
         $check_stmt->execute([$ssn]);
         $emp = $check_stmt->fetchAll(PDO::FETCH_ASSOC);
