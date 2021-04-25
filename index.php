@@ -9,14 +9,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fname = test_input($_POST['first_name']);
     $lname = test_input($_POST['last_name']);
     $email = test_input($_POST['email']);
-    $phone = test_input($_POST['phone']);
-    $ssn = test_input($_POST['ssn']);
 
     $jwt = new JwtHandler();
     $token = $jwt->_jwt_encode_data(
         'http://localhost/php_jwt/',
-        array("first_name"=>$fname,"last_name"=>$lname, "email"=>$email, "phone"=>$phone, "ssn"=>$ssn)
+        array("first_name"=>$fname,"last_name"=>$lname, "email"=>$email)
     );
+
+    setcookie('token', $token);
 
     echo "<strong>Your Token is -</strong><br> $token";
 }
