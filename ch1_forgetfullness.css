@@ -1,0 +1,91 @@
+/* Website Container */
+body, html {
+    margin: 0px;
+    padding: 0px;
+    max-height: max-content;
+    max-width: 100%;
+
+}
+
+
+
+/* Set global variables for the website */
+:root {
+    --colorTheme: rgb(26, 70, 99);
+}
+
+
+.page-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+/* Header Contect */
+  
+#navbar {
+    background-color: #333;
+    width: 100%;
+    padding-top: 0px;
+    position: fixed;
+} 
+#navbar a {
+    float: right;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+} 
+#navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+#navbar a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+.header-container {
+    display: grid;
+    grid-template-columns: 100px auto auto auto auto 100px;
+    width: 100%;
+    height: 250px;
+}
+.header-img {
+    grid-column: 2/3;
+    text-align: center;
+    align-self: center;
+}
+.header-img img {
+    width: 250px;
+    height: 250px;
+}
+.header-contact {
+    grid-column: 5/6;
+    text-align: center;
+    align-self: center;
+    color: black;
+}
+
+.page-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 250px auto 250px;
+    grid-row-gap: 30px;
+}
+.prev-next-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-column: 2/3;
+}
+.prev-next-container a {
+    text-decoration: none;
+}
+.prev-next-container a:hover {
+    cursor: pointer;
+    color: blue;
+}
+.content {
+    grid-column: 2/3;
+}
