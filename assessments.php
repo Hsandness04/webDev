@@ -1,17 +1,13 @@
 <?php
 
 if(isset($_COOKIE['token'])){
-    require 'JwtHandler.php';
-    $jwt = new JwtHandler();
 
-    $data =  $jwt->_jwt_decode_data(trim($_COOKIE['token']));
+    $jwt_time = $_COOKIE['token'];
+    
+    if ((int)$jwt_time < time()) {var_dump((int)$jwt_time);}
+    else {echo header('Location: accessDenied.html');}}
 
-    var_dump($data);
-    //$jwt_time = $data['exp'];
 
-} //else {
-    //echo header('Location: accessDenied.html');
-//}
 
 echo "<!--head tag displays the metadata--> 
     <head>
