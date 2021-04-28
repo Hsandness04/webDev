@@ -1,6 +1,6 @@
 <?php
 require 'JwtHandler.php';
-require '../connect.php';
+require 'connect.php';
 
 
 $fname = $lname = $email = $phone = $ssn = "";
@@ -16,9 +16,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         array("first_name"=>$fname,"last_name"=>$lname, "email"=>$email)
     );
 
-    setcookie('token', $token);
+    // Create new JwtHandler object to handle the incoming
+    // token from jwtHandler.php. This retrieves the exp
+    // value from the JWT so other pages can check if
+    // the JWT is still valid or not.
 
-    echo "<strong>Your Token is -</strong><br> $token";
+    $jwt_time = new JwtHandler();
+    $data =  $jwt_time->_jwt_decode_data(trim($token));
+
+    var_dump($data);
+    setcookie('token', $data, "/");
+    echo header('Location: assessments.html');
 }
 function test_input($data) {
     $data = trim($data);
