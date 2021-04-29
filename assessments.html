@@ -10,15 +10,27 @@
 
     <body> 
         <script>
-            var jwt_exp = parseInt(document.cookie);
-            var date = new Date();
-            var current_time = (date.getTime() / 1000);
-
-           if (jwt_exp > current_time) {
-                continue;
-            } else {
-                window.location.href = 'accessDenied.html';
+            function getCookie(cookie) {
+                if (document.cookie = '') {
+                    window.location.href = 'accessDenied.html';
+                } else {
+                    const cookieValue = cookie
+                    .split('; ')
+                    .find(row => row.startsWith('user='))
+                    .split('=')[1];
+                    return cookieValue;
+                }
             }
+
+            setInterval( function() {
+                    if(confirm(alert('You will be signed out in 1 minute. Click Ok to continue.'))) {
+                        alert('Hello');
+                    } else {
+                        window.location.href = 'signedOut.html';
+                    }
+                window.location.href = 'accessDenied.html';
+            }, 5000);
+
         </script>
 
         <div class="page-wrapper">
