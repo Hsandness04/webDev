@@ -10,26 +10,30 @@
 
     <body> 
         <script>
-            function getCookie(cookie) {
-                if (document.cookie = '') {
-                    window.location.href = 'accessDenied.html';
-                } else {
-                    const cookieValue = cookie
+             // Trys to get the cookie with user as the name
+            // and finds if there has been a cookie set for it.
+            function getToken(cookie) {
+                try {
+                    cookie
                     .split('; ')
                     .find(row => row.startsWith('user='))
                     .split('=')[1];
-                    return cookieValue;
+                } catch(err) {
+                    return err.name;
                 }
             }
 
-            setInterval( function() {
-                    if(confirm(alert('You will be signed out in 1 minute. Click Ok to continue.'))) {
-                        alert('Hello');
-                    } else {
-                        window.location.href = 'signedOut.html';
-                    }
-                window.location.href = 'accessDenied.html';
-            }, 5000);
+            // Checks if there is a cookie returned from the getToken function.
+            // If there isn't then the user will be redirected.
+            function getCookie() {
+                if (document.cookie == '') {
+                    window.location.href = 'accessDenied.html';
+                }
+                else if ( getToken(document.cookie) == 'TypeError') {
+                    window.location.href = 'accessDenied.html';
+                }   
+            }
+            getCookie();
 
         </script>
 
