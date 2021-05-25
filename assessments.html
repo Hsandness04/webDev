@@ -1,23 +1,127 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <!--head tag displays the metadata--> 
     <head>
-        <title>Core Passion</title>
+        <title>Global Health Care</title>
         <meta name = 'viewport' charset="utf-8" content="width = device-width initial-scale = 1.0">
         <link rel="stylesheet" type='text/css' href='assessments.css'></link>
     </head>
 
     <body> 
         <script>
-            // If person is an employee then save variables
-            // and use them for the local storage. If person
-            // is not an employee then display a message
-            // that says they don't have access.
+
+            // Sets the interval to check if user session
+            // is still valid or not.
+            setTimeout(showTimeVariable, 10000);
+            //setInterval(showTimeVariable, 10000);
+
+
+                // Every x amount of seconds, check the time
+                // of the JWT.
+
+                function showTimeVariable () {
+                    time = checkActivity(showTime);
+                    return time;
+                }
+
+                // Trys to get the cookie with user as the name
+                // and finds if there has been a cookie set for it.
+                function getCookie(cookie) {
+                    try {
+                        cookie.split('; ').find(row => row.startsWith('user=')).split('=')[1];
+                    } 
+                    catch(err) {
+                        if (err !== '') {
+                            window.location.href = 'accessDenied.html';
+                        } 
+                    }
+                    finally {
+                        userCookie = cookie.split('; ').find(row => row.startsWith('user=')).split('=')[1];
+                        return userCookie;
+                    }
+                }
+
+                // Checks if there is a cookie returned from the getCookie function.
+                // If there isn't then the user will be redirected.
+                function getToken() {
+                    if (document.cookie == '') {
+                        window.location.href = 'accessDenied.html';
+                    } else  {
+                        userCookie = getCookie(document.cookie);
+                        return userCookie;
+                    } 
+                } 
+
+                // Takes the showTime function as a parameter.
+                // Store cookie is userCookie variable and send that
+                // variable to the checkTime.php file using the 
+                // xmlhttp object. checkTime.php will return the expiration
+                // time of the current users jwt.
+
+                function checkActivity(showTime) {
+                    userCookie = getToken();
+                    xmlhttp = new XMLHttpRequest();
+                        xmlhttp.onreadystatechange = function() {
+                            if (this.readyState == 4 && this.status == 200) {
+                                showTime(this)
+                            }
+                        };
+                        xmlhttp.open("GET", "checkTime.php?q=" + userCookie, true);
+                        xmlhttp.send();
+                }
+                //checkActivity(showTime);
+
+                // Takes the 'this' variable which is the xmlhttp object.
+                // showTime(this) returns the response which is the
+                // expiration time of the jwt.
+                function showTime(xmlhttp) {
+                    if (xmlhttp !== 'Expired token') {
+                        // Create confirmation for user to choose
+                        // whether to extend the session with a 
+                        // refresh token or exit out of the session.
+
+                        setTimeout(function() {
+                            
+                            let confirmation = new Promise(function(resolved, rejected){
+                                
+                                response = confirm('To continue session, click Ok.');
+
+                                    if (response == true) {
+                                        resolved('Ok');
+                                    } else {
+                                        rejected('Exit');
+                                    }
+                            });
+
+                            confirmation.then(
+                                function(value) { refreshToken() },
+                                function(error) { exit() }
+                            ); 
+
+                            // Refresh token and keep session active.
+                            function refreshToken() {
+
+                            }
+                            function exit() {
+                                clearCookie();
+                            }
+                            
+                        }, 10)
+                    }
+
+                    // Function to call when the user redirects
+                    // and ends the session.
+                    function clearCookie() {
+
+                        userCookie = document.cookie.split('; ').find(row => row.startsWith('user=')).split('=')[1];
+                        document.cookie = "user=" + userCookie + "; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=./";
+                        window.location.href = 'signIn.html';
+                    }
+                }
 
         </script>
+
         <div class="page-wrapper">
             <div id="navbar">
                 <a href='assessments.html'>Assessments</a>
@@ -29,7 +133,7 @@
             </div>
             <div id='header-container' class='header-container'>
                 <div class='header-img'>
-                    <img name="logo" src="resources/company_logo.png">
+                    <img name="logo" src="./resources/company_logo.png">
                 </div>
                 <div class="header-contact">
                     <h2>Call Now: (763) 591-1959</h2>
