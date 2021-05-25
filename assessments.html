@@ -1,42 +1,23 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <!--head tag displays the metadata--> 
     <head>
-        <title>Global Health Care</title>
+        <title>Core Passion</title>
         <meta name = 'viewport' charset="utf-8" content="width = device-width initial-scale = 1.0">
         <link rel="stylesheet" type='text/css' href='assessments.css'></link>
     </head>
 
     <body> 
         <script>
-             // Trys to get the cookie with user as the name
-            // and finds if there has been a cookie set for it.
-            function getToken(cookie) {
-                try {
-                    cookie
-                    .split('; ')
-                    .find(row => row.startsWith('user='))
-                    .split('=')[1];
-                } catch(err) {
-                    return err.name;
-                }
-            }
-
-            // Checks if there is a cookie returned from the getToken function.
-            // If there isn't then the user will be redirected.
-            function getCookie() {
-                if (document.cookie == '') {
-                    window.location.href = 'accessDenied.html';
-                }
-                else if ( getToken(document.cookie) == 'TypeError') {
-                    window.location.href = 'accessDenied.html';
-                }   
-            }
-            getCookie();
+            // If person is an employee then save variables
+            // and use them for the local storage. If person
+            // is not an employee then display a message
+            // that says they don't have access.
 
         </script>
-
         <div class="page-wrapper">
             <div id="navbar">
                 <a href='assessments.html'>Assessments</a>
@@ -48,7 +29,7 @@
             </div>
             <div id='header-container' class='header-container'>
                 <div class='header-img'>
-                    <img name="logo" src="./resources/company_logo.png">
+                    <img name="logo" src="resources/company_logo.png">
                 </div>
                 <div class="header-contact">
                     <h2>Call Now: (763) 591-1959</h2>
