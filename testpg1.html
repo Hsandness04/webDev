@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--head tag displays the metadata--> 
+    <head>
+        <title>Core Passion</title>
+        <meta name = 'viewport' charset="utf-8" content="width = device-width initial-scale = 1.0">
+        <link rel="stylesheet" type='text/css' href='testpg1.css'></link>
+    </head>
+
+    <body> 
+        <script>
+
+            // Sets the interval to check if user session
+            // is still valid or not.
+            //setTimeout(showTimeVariable, 10000);
+            //setInterval(showTimeVariable, 10000);
+
+                function showTimeVariable () {
+                    time = checkActivity(showTime);
+                    return time;
+                }
+
+                // Trys to get the cookie with user as the name
+                // and finds if there has been a cookie set for it.
+                function getCookie(cookie) {
+                    try {
+                        cookie.split('; ').find(row => row.startsWith('user=')).split('=')[1];
+                    } 
+                    catch(err) {
+                        if (err !== '') {
+                            window.location.href = './accessDenied.html';
+                        } 
+                    }
+                    finally {
+                        userCookie = cookie.split('; ').find(row => row.startsWith('user=')).split('=')[1];
+                        return userCookie;
+                    }
+                }
+
+                // Checks if there is a cookie returned from the getCookie function.
+                // If there isn't then the user will be redirected.
+                function getToken() {
+                    if (document.cookie == '') {
+                        window.location.href = './accessDenied.html';
+                    } else if ( getCookie(document.cookie) !== '') {
+                        userCookie = getCookie(document.cookie);
+                        return userCookie;
+                    } 
+                } 
+
+                // Takes the showTime function as a parameter.
+                // Store cookie is userCookie variable and send that
+                // variable to the checkTime.php file using the 
+                // xmlhttp object. checkTime.php will return the expiration
+                // time of the current users jwt.
+                function checkActivity(showTime) {
+                    userCookie = getToken();
+                    xmlhttp = new XMLHttpRequest();
+                        xmlhttp.onreadystatechange = function() {
+                            if (this.readyState == 4 && this.status == 200) {
+                                showTime(this)
+                            }
+                        };
+                        xmlhttp.open("GET", "../checkTime.php?q=" + userCookie, true);
+                        xmlhttp.send();
+                }
+                //checkActivity(showTime);
+
+                // Takes the 'this' variable which is the xmlhttp object.
+                // showTime(this) returns the response which is the
+                // expiration time of the jwt.
+                function showTime(xmlhttp) {
+                    tokenResponse = xmlhttp.responseText;
+                    if (tokenResponse == 'Expired token') {
+                        // Create confirmation for user to choose
+                        // whether to extend the session with a 
+                        // refresh token or exit out of the session.
+
+                        setTimeout(function() {
+                            
+                            let confirmation = new Promise(function(resolved, rejected){
+                                
+                                response = confirm('To continue session, click Ok.');
+
+                                    if (response == true) {
+                                        resolved('Ok');
+                                    } else {
+                                        rejected('Exit');
+                                    }
+                            });
+
+                            confirmation.then(
+                                function(value) { refreshToken() },
+                                function(error) { exit() }
+                            ); 
+
+                            // Refresh token and keep session active.
+                            function refreshToken() {
+
+                            }
+                            function exit() {
+                                clearCookie();
+                            }
+                            
+                        }, 10)
+                    }
+        
+
+                    // Function to call when the user redirects
+                    // and ends the session.
+                    function clearCookie() {
+
+                        userCookie = document.cookie.split('; ').find(row => row.startsWith('user=')).split('=')[1];
+                        document.cookie = "user=" + userCookie + "; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=./";
+                        window.location.href = '../signIn.html';
+                    }
+                }
+
+        </script>
+        <div class="page-wrapper">
+            <div id="navbar">
+                <a href='assessments.html'>Assessments</a>
+                <a href='../emp_signIn.php'>Employee Login</a>
+                <a href="home.html">ContactUs</a>
+                <a href="#services-header">Services</a>
+                <a href="#about-wrapper">About</a>
+                <a href="home.html">Home</a>
+            </div>
+            <div id='header-container' class='header-container'>
+                <div class='header-img'>
+                    <img name="logo" src="../resources/company_logo.png">
+                </div>
+                <div class="header-contact">
+                    <h2>Call Now: (763) 591-1959</h2>
+                    <h5>24 Hr | Certified Nurses | Hourly</h5>
+                    <p> Serving the Minneapolis area for over 20 years.</p>
+                </div>
+            </div>
+            <div class="prev-next-container">
+                <a id='prev' href='ch2_treatment.html'>Previous</a>
+                <a id='next' href='testpg2.html'>Next</a>
+            </div>
+            <form class="questions-container" action="submit.php">
+                <div class="questions-wrapper">
+                    <ul>
+                        <li>Q1: What is the heart</li>
+                        <div class="ques-buttons">
+                            <p>A</p>
+                            <label for='Q1A' class='ques-choices'>Something</label>
+                                <input type='radio'  class='Q1' name='Q1' value='Q1-A'>
+                            <p>B</p>
+                            <label class='ques-choices'>Something</label>
+                                <input type='radio'  class='Q1' name='Q1' value='Q1-B'>
+                            <p>C</p>
+                            <label class='ques-choices'>Something</label>
+                                <input type='radio'  class='Q1' name='Q1' value='Q1-C'>
+                            <p>D</p>
+                            <label class='ques-choices'>Something</label>
+                                <input type='radio'  class='Q1' name='Q1' value='Q1-D'>
+                            <p>E</p>
+                            <label class='ques-choices'>Something</label>
+                                <input type='radio'  class='Q1' name='Q1' value='Q1-E'>
+                        </div>
+                    </ul>
+                    <ul>
+                        <li>Q2: Lorem ipsum dolor sit amet, consectetur 
+                            adipisicing elit. Labore tempore obcaecati 
+                            in magnam corporis, nam laborum error repel
+                            lat vero eum nemo ipsa voluptatum reprehende
+                            rit doloribus temporibus velit sed id hic!
+                        </li>
+                        <div class="ques-buttons">
+                            <p>A</p>
+                            <label class='ques-choices'>Something about latin that does not matter. You can just look up latin
+                                                    on google so why would you waste your time trying to learn it. 
+                            </label>
+                                <input type='radio' class='Q2' name='Q2' value='Q2-A'>
+                            <p>B</p>
+                            <label class='ques-choices'>Something</label>
+                                <input type='radio' class='Q2' name='Q2' value='Q2-B'>
+                            <p>C</p>
+                            <label class='ques-choices'>Something</label>
+                                <input type='radio' class='Q2' name='Q2' value='Q2-C'>
+                            <p>D</p>
+                            <label class='ques-choices'>Something</label>
+                                <input type='radio' class='Q2' name='Q2' value='Q2-D'>
+                            <p>E</p>
+                            <label class='ques-choices'>Something</label>
+                                <input type='radio' class='Q2' name='Q2' value='Q2-E'>
+                        </div>
+                    </ul>
+                    <ul>
+                        <li>Q3: Lorem ipsum dolor sit amet, consectetur 
+                            adipisicing elit. Labore tempore obcaecati 
+                            in magnam corporis, nam laborum error repel
+                            lat vero eum nemo ipsa voluptatum reprehende
+                            rit doloribus temporibus velit sed id hic!
+                        </li>
+                        <div class="ques-buttons">
+                            <p>A</p>
+                            <label class='ques-choices'>Something about latin that does not matter. You can just look up latin
+                                                    on google so why would you waste your time trying to learn it. 
+                            </label>
+                                <input type='radio' class='Q3' name='Q3' value='Q2-A'>
+                            <p>B</p>
+                            <label class='ques-choices'>Something about latin that does not matter. You can just look up latin
+                                                    on google so why would you waste your time trying to learn it. 
+                            </label>
+                                <input type='radio' class='Q3'name='Q3' value='Q2-B'>
+                            <p>C</p>
+                            <label class='ques-choices'>Something about latin that does not matter. You can just look up latin
+                                                    on google so why would you waste your time trying to learn it. 
+                            </label>
+                                <input type='radio' class='Q3' name='Q3' value='Q2-C'>
+                            <p>D</p>
+                            <label class='ques-choices'>Something about latin that does not matter. You can just look up latin
+                                                    on google so why would you waste your time trying to learn it. 
+                            </label>
+                                <input type='radio' class='Q3' name='Q3' value='Q2-D'>
+                            <p>E</p>
+                            <label class='ques-choices'>Something about latin that does not matter. You can just look up latin
+                                                    on google so why would you waste your time trying to learn it. 
+                            </label>
+                                <input type='radio' class='Q3' name='Q3' value='Q2-E'>
+                        </div>
+                    </ul>
+                    <ul>
+                        <li>Q4: Lorem ipsum dolor sit amet, consectetur 
+                            adipisicing elit. Labore tempore obcaecati 
+                            in magnam corporis, nam laborum error repel
+                            lat vero eum nemo ipsa voluptatum reprehende
+                            rit doloribus temporibus velit sed id hic!
+                        </li>
+                        <div class="ques-buttons">
+                            <p>A</p>
+                            <label class='ques-choices'>Something about latin that does not matter. You can just look up latin
+                                                    on google so why would you waste your time trying to learn it. 
+                            </label>
+                                <input type='radio' class='Q4' name='Q4' value='Q2-A'>
+                            <p>B</p>
+                            <label class='ques-choices'>Something
+                            </label>
+                                <input type='radio' class='Q4' name='Q4' value='Q2-B'>
+                            <p>C</p>
+                            <label class='ques-choices'>Something
+                            </label>
+                                <input type='radio' class='Q4' name='Q4' value='Q2-C'>
+                            <p>D</p>
+                            <label class='ques-choices'>Something
+                            </label>
+                                <input type='radio' class='Q4' name='Q4' value='Q2-D'>
+                            <p>E</p>
+                            <label class='ques-choices'>Something
+                            </label>
+                                <input type='radio' class='Q4' name='Q4' value='Q2-E'>
+                        </div>
+                    </ul> 
+                    <ul>
+                        <li>Q5: Lorem ipsum dolor sit amet, consectetur 
+                            adipisicing elit. Labore tempore obcaecati 
+                            in magnam corporis, nam laborum error repel
+                            lat vero eum nemo ipsa voluptatum reprehende
+                            rit doloribus temporibus velit sed id hic!
+                        </li>
+                        <div class="ques-buttons">
+                            <p>A</p>
+                            <label class='ques-choices'>Something about latin that does not matter. You can just look up latin
+                                                    on google so why would you waste your time trying to learn it. 
+                            </label>
+                                <input type='radio' class='Q5' name='Q5' value='Q2-A'>
+                            <p>B</p>
+                            <label class='ques-choices'>Something
+                            </label>
+                                <input type='radio' class='Q5' name='Q5' value='Q2-B'>
+                            <p>C</p>
+                            <label class='ques-choices'>Something
+                            </label>
+                                <input type='radio' class='Q5' name='Q5' value='Q2-C'>
+                            <p>D</p>
+                            <label class='ques-choices'>Something 
+                            </label>
+                                <input type='radio' class='Q5' name='Q5' value='Q2-D'>
+                            <p>E</p>
+                            <label class='ques-choices'>Something
+                            </label>
+                                <input type='radio' class='Q5' name='Q5' value='Q2-E'>
+                        </div>
+                    </ul> 
+                    <ul>
+                        <li>Q6: Lorem ipsum dolor sit amet, consectetur 
+                            adipisicing elit. Labore tempore obcaecati 
+                            in magnam corporis, nam laborum error repel
+                            lat vero eum nemo ipsa voluptatum reprehende
+                            rit doloribus temporibus velit sed id hic!
+                        </li>
+                        <div class="ques-buttons">
+                            <p>A</p>
+                            <label class='ques-choices'>Something about latin that does not matter. You can just look up latin
+                                                    on google so why would you waste your time trying to learn it. 
+                            </label>
+                                <input type='radio' class='Q6' name='Q6' value='Q2-A'>
+                            <p>B</p>
+                            <label class='ques-choices'>Something 
+                            </label>
+                                <input type='radio' class='Q6' name='Q6' value='Q2-B'>
+                            <p>C</p>
+                            <label class='ques-choices'>Something
+                            </label>
+                                <input type='radio' class='Q6' name='Q6' value='Q2-C'>
+                            <p>D</p>
+                            <label class='ques-choices'>Something 
+                            </label>
+                                <input type='radio' class='Q6' name='Q6' value='Q2-D'>
+                            <p>E</p>
+                            <label class='ques-choices'>Something  
+                            </label>
+                                <input type='radio' class='Q6' name='Q6' value='Q2-E'>
+                        </div>
+                    </ul> 
+                    <ul>
+                        <li>Q7: Lorem ipsum dolor sit amet, consectetur 
+                            adipisicing elit. Labore tempore obcaecati 
+                            in magnam corporis, nam laborum error repel
+                            lat vero eum nemo ipsa voluptatum reprehende
+                            rit doloribus temporibus velit sed id hic!
+                        </li>
+                        <div class="ques-buttons">
+                            <p>A</p>
+                            <label class='ques-choices'>Something about latin that does not matter. You can just look up latin
+                                                    on google so why would you waste your time trying to learn it. 
+                            </label>
+                                <input type='radio' class='Q7' name='Q7' value='Q2-A'>
+                            <p>B</p>
+                            <label class='ques-choices'>Something
+                            </label>
+                                <input type='radio' class='Q7' name='Q7' value='Q2-B'>
+                            <p>C</p>
+                            <label class='ques-choices'>Something
+                            </label>
+                                <input type='radio' class='Q7' name='Q7' value='Q2-C'>
+                            <p>D</p>
+                            <label class='ques-choices'>Something 
+                            </label>
+                                <input type='radio' class='Q7' name='Q7' value='Q2-D'>
+                            <p>E</p>
+                            <label class='ques-choices'>Something
+                            </label>
+                                <input type='radio' class='Q7' name='Q7' value='Q2-E'>
+                        </div>
+                    </ul> 
+                    <ul>
+                        <li>Q8: Lorem ipsum dolor sit amet, consectetur 
+                            adipisicing elit. Labore tempore obcaecati 
+                            in magnam corporis, nam laborum error repel
+                            lat vero eum nemo ipsa voluptatum reprehende
+                            rit doloribus temporibus velit sed id hic!
+                        </li>
+                        <div class="ques-buttons">
+                            <p>A</p>
+                            <label class='ques-choices'>Something about latin that does not matter. You can just look up latin
+                                                    on google so why would you waste your time trying to learn it. 
+                            </label>
+                                <input type='radio' class='Q8' name='Q8' value='Q2-A'>
+                            <p>B</p>
+                            <label class='ques-choices'>Something 
+                            </label>
+                                <input type='radio' class='Q8' name='Q8' value='Q2-B'>
+                            <p>C</p>
+                            <label class='ques-choices'>Something 
+                            </label>
+                                <input type='radio' class='Q8' name='Q8' value='Q2-C'>
+                            <p>D</p>
+                            <label class='ques-choices'>Something 
+                            </label>
+                                <input type='radio' class='Q8' name='Q8' value='Q2-D'>
+                            <p>E</p>
+                            <label class='ques-choices'>Something
+                            </label>
+                                <input type='radio' class='Q8' name='Q8' value='Q2-E'>
+                        </div>
+                    </ul> 
+                    <ul>
+                        <li>Q9: Lorem ipsum dolor sit amet, consectetur 
+                            adipisicing elit. Labore tempore obcaecati 
+                            in magnam corporis, nam laborum error repel
+                            lat vero eum nemo ipsa voluptatum reprehende
+                            rit doloribus temporibus velit sed id hic!
+                        </li>
+                        <div class="ques-buttons">
+                            <p>A</p>
+                            <label class='ques-choices'>Something about latin that does not matter. You can just look up latin
+                                                    on google so why would you waste your time trying to learn it. 
+                            </label>
+                                <input type='radio' class='Q9' name='Q9' value='Q9-A'>
+                            <p>B</p>
+                            <label class='ques-choices'>Something   
+                            </label>
+                                <input type='radio' class='Q9' name='Q9' value='Q9-B'>
+                            <p>C</p>
+                            <label class='ques-choices'>Something
+                            </label>
+                                <input type='radio' class='Q9' name='Q9' value='Q9-C'>
+                            <p>D</p>
+                            <label class='ques-choices'>Something   
+                            </label>
+                                <input type='radio' class='Q9' name='Q9' value='Q9-D'>
+                            <p>E</p>
+                            <label class='ques-choices'>Something 
+                            </label>
+                                <input type='radio' class='Q9' name='Q9' value='Q9-E'>
+                        </div>
+                    </ul> 
+                    <ul>
+                        <li>Q10: Lorem ipsum dolor sit amet, consectetur 
+                            adipisicing elit. Labore tempore obcaecati 
+                            in magnam corporis, nam laborum error repel
+                            lat vero eum nemo ipsa voluptatum reprehende
+                            rit doloribus temporibus velit sed id hic!
+                        </li>
+                        <div class="ques-buttons">
+                            <p>A</p>
+                            <label class='ques-choices'>Something about latin that does not matter. You can just look up latin
+                                                    on google so why would you waste your time trying to learn it. 
+                            </label>
+                                <input type='radio' class='Q10' name='Q10' value='Q10-A'>
+                            <p>B</p>
+                            <label class='ques-choices'>Something 
+                            </label>
+                                <input type='radio' class='Q10' name='Q10' value='Q10-B'>
+                            <p>C</p>
+                            <label class='ques-choices'>Something  
+                            </label>
+                                <input type='radio' class='Q10' name='Q10' value='Q10-C'>
+                            <p>D</p>
+                            <label class='ques-choices'>Something
+                            </label>
+                                <input type='radio' class='Q10' name='Q10' value='Q10-D'>
+                            <p>E</p>
+                            <label class='ques-choices'>Something 
+                            </label>
+                                <input type='radio' class='Q10' name='Q10' value='Q10-E'>
+                        </div>
+                    </ul> 
+                </div>
+                <div class="button-container">
+                    <input id="submit" type = "submit"></input>
+                </div>
+            </form>
+            <div class="prev-next-container">
+                <a id='prev' href='ch2_treatment.html'>Previous</a>
+                <a id='next' href='testpg2.html' onclick="saveTestInput()">Next</a>
+            </div>
+        </div>
+        <script>
+            // Save test input date to session variables.
+            function saveTestInput() {
+
+
+                var myQuestion;
+                for (myQuestion = 1; myQuestion < 11; myQuestion++) {
+
+                    var QuestionNumber = document.getElementsByClassName('Q' + myQuestion.toString());
+                    
+                    //QuestionNumber[0] = Q#-A
+                    var index;
+                    for (index = 0; index < QuestionNumber.length; index++) {
+                        var answer = QuestionNumber[index];
+                        if (answer.checked == true) {
+                            sessionStorage.setItem('Q' + myQuestion.toString() , answer.value);
+                        } 
+                    }
+                }
+            }
+
+            // Load any test session variables so users
+            // don't have to re-enter each time they click
+            // the previous or next screen.
+            function reloadTestInput() {
+                var question = sessionStorage.getItem('Q1');
+                var testInput = document.getElementsByClassName('Q1');
+                testInput[0].checked == true;
+            }
+            reloadTestInput();
+        </script>
+    </body>
+</html>
